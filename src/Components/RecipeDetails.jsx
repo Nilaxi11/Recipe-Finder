@@ -9,15 +9,15 @@ const RecipeDetail = () => {
   const { id } = useParams();
   const [recipe, setRecipe] = useState(null);
 
-  const fetchRecipe = async () => {
+  const fetchRecipe = useCallback(async () => {
     const res = await fetch(`https://dummyjson.com/recipes/${id}`);
     const data = await res.json();
     setRecipe(data);
-  };
+  }, [id]);
 
   useEffect(() => {
     fetchRecipe();
-  }, [id]);
+  }, [fetchRecipe]);
 
   if (!recipe) return <h3 className="text-center mt-5">Loading...</h3>;
 
